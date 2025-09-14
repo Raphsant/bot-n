@@ -1,4 +1,4 @@
-const { createAudioPlayer, createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, AudioPlayerStatus, StreamType } = require('@discordjs/voice');
 const ytdl = require('@distube/ytdl-core');
 
 class MusicQueue {
@@ -32,10 +32,14 @@ class MusicQueue {
       const stream = ytdl(song.url, {
         filter: 'audioonly',
         quality: 'highestaudio',
-        highWaterMark: 1 << 25
+        highWaterMark: 1 << 25,
+        opusEncoded: false
       });
 
-      const resource = createAudioResource(stream);
+      const resource = createAudioResource(stream, {
+        inputType: StreamType.Arbitrary,
+        inlineVolume: false
+      });
 
       if (!this.player) {
         this.player = createAudioPlayer();
