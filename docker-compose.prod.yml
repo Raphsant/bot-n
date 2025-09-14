@@ -1,0 +1,49 @@
+# Production docker-compose for FreeNAS deployment
+version: '3.8'
+
+services:
+  discord-bot:
+    # Update this to your actual registry URL after pushing
+    image: ghcr.io/your-username/discord:latest
+    container_name: discord-music-bot
+    restart: unless-stopped
+    volumes:
+      # Mount config from host - adjust path for your FreeNAS setup
+      - /mnt/your-pool/docker/discord-bot/config.yml:/usr/src/app/config.yml:ro
+      - discord-logs:/usr/src/app/logs
+    environment:
+      - NODE_ENV=production
+      - TZ=America/New_York  # Set your timezone
+      - BOT_TOKEN=YOUR_BOT_TOKEN_HERE
+      - CLIENT_ID=YOUR_CLIENT_ID_HERE
+    networks:
+      - discord-bot-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Resource limits for FreeNAS
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    # Security settings
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
+
+networks:
+  discord-bot-network:
+    driver: bridge
+
+volumes:
+  discord-logs:
+    driver: local
