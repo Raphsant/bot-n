@@ -1,8 +1,8 @@
 # Use Node.js 20 LTS (has File API support)
 FROM node:20-alpine
 
-# Install ffmpeg and opus tools for audio processing
-RUN apk add --no-cache ffmpeg opus-tools libopus
+# Install ffmpeg and opus libraries for audio processing
+RUN apk add --no-cache ffmpeg opus libopus-dev
 
 # Create app directory
 WORKDIR /usr/src/app
