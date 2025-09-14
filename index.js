@@ -1,19 +1,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const yaml = require('js-yaml');
 const {Client, Collection, GatewayIntentBits} = require('discord.js');
 
-let config = {};
-try {
-  if (fs.existsSync('./config.yaml')) {
-    const fileContents = fs.readFileSync('./config.yaml', 'utf8');
-    config = yaml.load(fileContents);
-  }
-} catch (e) {
-  console.log('Warning: Could not load config.yaml, falling back to environment variables');
-}
+const token = process.env.BOT_TOKEN;
 
-const token = process.env.BOT_TOKEN || config.token;
+if (!token) {
+  console.error('BOT_TOKEN environment variable is required');
+  process.exit(1);
+}
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds,
