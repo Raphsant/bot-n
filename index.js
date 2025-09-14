@@ -2,10 +2,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {Client, Collection, GatewayIntentBits} = require('discord.js');
 
-const token = process.env.BOT_TOKEN;
+const token = process.env.token;
 
 if (!token) {
-  console.error('BOT_TOKEN environment variable is required');
+  console.error('token environment variable is required');
   process.exit(1);
 }
 
