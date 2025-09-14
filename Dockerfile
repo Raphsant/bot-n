@@ -1,5 +1,5 @@
-# Use Node.js 18 LTS
-FROM node:18-alpine
+# Use Node.js 20 LTS (has File API support)
+FROM node:20-alpine
 
 # Install ffmpeg for audio processing
 RUN apk add --no-cache ffmpeg
