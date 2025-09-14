@@ -3,8 +3,8 @@ version: '3.8'
 
 services:
   discord-bot:
-    # Update this to your actual registry URL after pushing
-    image: ghcr.io/your-username/discord:latest
+    # Your actual built image
+    image: ghcr.io/raphsant/bot-n:latest
     container_name: discord-music-bot
     restart: unless-stopped
     volumes:
@@ -16,6 +16,9 @@ services:
       - TZ=America/New_York  # Set your timezone
       - BOT_TOKEN=YOUR_BOT_TOKEN_HERE
       - CLIENT_ID=YOUR_CLIENT_ID_HERE
+      - WELCOME_CHANNEL_ID=945399185425969213
+      - WELCOME_ROLE_ID=938826292164427896
+      - SUNNY_USER_ID=203565947397734401
     networks:
       - discord-bot-network
     healthcheck:

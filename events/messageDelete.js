@@ -1,5 +1,5 @@
 const {Events, MessageFlags, EmbedBuilder} = require('discord.js')
-const {sunny} = require('../config.json')
+const config = require('../utils/config')
 
 module.exports = {
   name: Events.MessageDelete,
@@ -7,7 +7,7 @@ module.exports = {
     console.log(`Message deleted in ${message.channel.name}`);
 
     try{
-      const user = await message.client.users.fetch(sunny)
+      const user = await message.client.users.fetch(config.getSunnyUserId())
 
       // Create the embed
       const deleteEmbed = new EmbedBuilder()

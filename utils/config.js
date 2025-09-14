@@ -45,11 +45,11 @@ class Config {
   }
 
   getWelcomeChannelId() {
-    return this.get('guild.welcomeChannelId');
+    return process.env.WELCOME_CHANNEL_ID || this.get('guild.welcomeChannelId');
   }
 
   getWelcomeRoleId() {
-    return this.get('guild.welcomeRoleId');
+    return process.env.WELCOME_ROLE_ID || this.get('guild.welcomeRoleId');
   }
 
   getMusicConfig() {
@@ -58,6 +58,10 @@ class Config {
 
   getLoggingConfig() {
     return this.get('logging') || {};
+  }
+
+  getSunnyUserId() {
+    return process.env.SUNNY_USER_ID || this.get('sunny');
   }
 }
 
