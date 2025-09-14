@@ -8,10 +8,10 @@ RUN apk add --no-cache ffmpeg
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY package.json yarn.lock ./
+COPY package.json ./
 
-# Install dependencies
-RUN yarn install --frozen-lockfile --production
+# Install dependencies using npm
+RUN npm install --only=production
 
 # Copy source code
 COPY . .
